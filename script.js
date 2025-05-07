@@ -82,23 +82,35 @@ document.getElementById("nextMonth").onclick = () => {
 
 // **NOVO: Listener para receber tarefas do Landbot**
 window.addEventListener('message', function(event) {
-  // Segurança: opcionalmente, valide event.origin aqui
+  console.log("Mensagem recebida:", event.data);
+  
   if (event.data?.type === 'nova-tarefa') {
-    const dataTarefa = event.data.data.data;        // Ex: "2025-05-10"
-    const descricao = event.data.data.descricao;    // Ex: "Fazer exercício de matemática"
-
-    // Converte a data para o formato da chave localStorage: "YYYY-M-D"
-    const [ano, mes, dia] = dataTarefa.split('-');
+    const dataTarefa = event.data.data.data;
+    const descricao = event.data.data.descricao;
+    
+    console.log("Data recebida:", dataTarefa);
+    
+    let ano, mes, dia;
+    
+    if (dataTarefa && dataTarefa.includes('-')) {
+      [ano, mes, dia] = dataTarefa.split('-');
+    } else if (dataTarefa && dataTarefa.includes('/')) {
+      [dia, mes, ano] = dataTarefa.split('/');
+      if (ano.length === 2) ano = `20${ano}`;
+    } else {
+      ano = currentDate.getFullYear();
+      mes = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+      dia = currentDate.getDate().toString().padStart(2, '0');
+      console.warn("Formato de data desconhecido, usando data atual");
+    }
+    
     const key = `${ano}-${parseInt(mes)}-${parseInt(dia)}`;
-
-    // Salva no localStorage
     localStorage.setItem(key, descricao);
-
-    // Atualiza o calendário para mostrar o ícone da tarefa
     generateCalendar(currentDate.getFullYear(), currentDate.getMonth());
-
+    
     alert(`✅ Tarefa recebida do chatbot!\n${descricao} em ${dia}/${mes}/${ano}`);
   }
 });
+
 
 generateCalendar(currentDate.getFullYear(), currentDate.getMonth());
