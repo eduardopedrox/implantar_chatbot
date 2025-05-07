@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Agenda Escolar Inteligente</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Agenda Escolar Inteligente</h1>
+      <p>Organize sua rotina de estudos com praticidade e tecnologia!</p>
+    </header>
+    <main>
+      <section class="calendar-section">
+        <h2>Minha Agenda</h2>
+        <div id="calendar-controls">
+          <button id="prevMonth">◀</button>
+          <span id="monthYear"></span>
+          <button id="nextMonth">▶</button>
+        </div>
+        <div id="calendar"></div>
+        <div id="taskArea" style="display: none;">
+          <h3 id="selectedDate"></h3>
+          <textarea id="taskInput" placeholder="Escreva sua tarefa..."></textarea>
+          <button onclick="saveTask()">Salvar Tarefa</button>
+        </div>
+      </section>
+    </main>
+  </div>
+  <!-- Landbot Chat Fixo -->  
+  <div id="landbot-chat"></div>
+  <script src="https://cdn.landbot.io/landbot-3/landbot-3.0.0.js"></script>
+  <script>
+    var myLandbot = new Landbot.Livechat({
+  configUrl: 'https://storage.googleapis.com/landbot.online/v3/H-2894225-CRIJENUPJC3CHA7T/index.json',
+  container: '#landbot-chat'
+});
+myLandbot.open();
+  </script>
+  <footer>
+    <p>© 2025 Agenda Escolar Inteligente. Todos os direitos reservados.</p>
+  </footer>
+<script src="script.js"></script>
+
+</body>
+</html>
